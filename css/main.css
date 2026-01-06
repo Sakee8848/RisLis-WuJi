@@ -747,10 +747,11 @@ h2 {
     border-color: var(--color-accent);
     transform: translateY(-2px);
 }
+
 /* Active Task Items */
 .task-card.active-item {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 16px;
     display: flex;
@@ -768,11 +769,543 @@ h2 {
     justify-content: center;
     font-size: 1.25rem;
 }
-.task-icon.icon-claim { background: rgba(59, 130, 246, 0.2); color: var(--color-accent); }
-.task-icon.icon-policy { background: rgba(16, 185, 129, 0.2); color: var(--color-success); }
 
-.task-info { flex: 1; }
-.task-info h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; color: var(--color-text-main); }
-.task-status { font-size: 0.8rem; color: var(--color-warning); }
+.task-icon.icon-claim {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--color-accent);
+}
 
-.task-time { font-size: 0.75rem; color: var(--color-text-muted); }
+.task-icon.icon-policy {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--color-success);
+}
+
+.task-info {
+    flex: 1;
+}
+
+.task-info h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--color-text-main);
+}
+
+.task-status {
+    font-size: 0.8rem;
+    color: var(--color-warning);
+}
+
+.task-time {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+/* Chat / Text Input View */
+.view-chat {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-main);
+    font-size: 1.5rem;
+    margin-right: 16px;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.chat-header h2 {
+    font-size: 1.3rem;
+}
+
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.chat-bubble {
+    padding: 12px 16px;
+    border-radius: 16px;
+    max-width: 85%;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    animation: fadeIn 0.3s var(--easing);
+}
+
+.chat-bubble.bot {
+    background: var(--color-surface);
+    color: var(--color-text-main);
+    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+}
+
+.chat-bubble.user {
+    background: var(--color-text-main);
+    color: var(--color-bg);
+    border-bottom-right-radius: 4px;
+    align-self: flex-end;
+}
+
+.chat-input-area {
+    margin-top: auto;
+    background: var(--color-surface);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+textarea.chat-input {
+    background: transparent;
+    border: none;
+    color: var(--color-text-main);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    width: 100%;
+    min-height: 80px;
+    resize: none;
+    outline: none;
+}
+
+.chat-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.send-btn {
+    background: var(--color-text-main);
+    color: var(--color-bg);
+    border: none;
+    border-radius: 12px;
+    padding: 8px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    transition: opacity 0.2s;
+}
+
+.send-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+/* ----- Channel & Connection Styles ----- */
+
+/* 入口卡片 */
+.channel-status-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.channel-status-card:active {
+    background: rgba(255,255,255,0.08);
+    transform: scale(0.98);
+}
+
+.channel-icon-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.channel-indicators {
+    display: flex;
+    gap: -8px; /* overlap */
+}
+
+.channel-logo-mini {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    color: #000;
+    font-size: 0.7rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--color-surface);
+    margin-left: -8px;
+}
+.channel-logo-mini:first-child { margin-left: 0; }
+
+/* 列表视图 */
+.channel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 24px;
+}
+
+.company-card {
+    background: var(--color-surface);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.company-card.connected {
+    border-color: rgba(16, 185, 129, 0.3);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.company-logo-lg {
+    width: 64px;
+    height: 64px;
+    background: #fff;
+    color: #1a1d24;
+    border-radius: 16px;
+    font-size: 2rem; /* Initial or Icon */
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.company-name {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--color-text-main);
+}
+
+.connection-status {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+.company-card.connected .connection-status {
+    color: var(--color-success);
+    font-weight: 500;
+}
+
+/* 连接动画视图 */
+.view-connecting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding-bottom: 100px;
+}
+
+.connection-stage {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+.node {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background: var(--color-surface);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    position: relative;
+}
+
+.node-icon {
+    font-size: 2rem;
+    color: var(--color-text-main);
+}
+
+.node-label {
+    position: absolute;
+    bottom: -24px;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* 连接线 */
+.connection-line-container {
+    position: absolute;
+    left: 80px; /* node width */
+    right: 80px;
+    top: 50%;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    margin: 0 40px;
+    transform: translateY(-50%);
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+/* 虚线连接中 */
+.connection-line-active {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    background-size: 50% 100%;
+    animation: flowData 1s linear infinite;
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+/* 激活状态 */
+.connecting .connection-line-active {
+    opacity: 1;
+}
+
+@keyframes flowData {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* 成功状态：实线发光 */
+.connected-state .connection-line-container {
+    background: var(--color-success);
+    box-shadow: 0 0 15px var(--color-success);
+    transition: all 0.5s;
+}
+
+/* Pulse Effect for Nodes */
+@keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+.node.pulse::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    border: 2px solid var(--color-accent);
+    top: 0;
+    left: 0;
+    animation: pulse-ring 1.5s infinite;
+}
+
+.node.pulse.success-pulse::before {
+    border-color: var(--color-success);
+    animation: none;
+    transform: scale(1.1);
+    opacity: 1;
+    border-width: 2px;
+    box-shadow: 0 0 20px var(--color-success);
+    transition: all 0.5s;
+}
+
+/* Terminal Log UI */
+.terminal-log {
+    margin-top: 40px;
+    width: 90%;
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    text-align: left;
+    height: 100px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.log-line {
+    margin-bottom: 4px;
+    opacity: 0;
+    animation: fadeLog 0.3s forwards;
+}
+
+.log-line.success { color: var(--color-success); }
+.log-line.warn { color: var(--color-warning); }
+
+@keyframes fadeLog {
+    to { opacity: 1; }
+}
+
+/* ----- Capabilities Manifest Card ----- */
+.view-connecting .capabilities-card {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    background: rgba(26, 29, 36, 0.95);
+    border: 1px solid var(--color-success);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+    animation: slideUp 0.5s var(--easing);
+    display: none; /* Hidden by default */
+    z-index: 10;
+}
+
+.view-connecting .capabilities-card.show {
+    display: block;
+}
+
+.cap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+}
+
+.cap-title {
+    font-family: monospace;
+    color: var(--color-success);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    font-size: 0.9rem;
+}
+
+.cap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.cap-item {
+    display: flex;
+    justify-content: space-between;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.cap-status {
+    color: var(--color-success);
+    font-weight: 600;
+}
+
+.btn-acknowledge {
+    width: 100%;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid var(--color-success);
+    color: var(--color-success);
+    padding: 12px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-acknowledge:hover {
+    background: var(--color-success);
+    color: #000;
+}
+
+/* ----- Company Card Hover Effects ----- */
+.company-card {
+    position: relative;
+    /* overflow: visible;  Allow tooltip to show outside if needed, but we used hidden before */
+    overflow: hidden; 
+}
+
+/* Service List Overlay (Hidden by default) */
+.service-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 29, 36, 0.95);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Let clicks pass through initially */
+}
+
+/* Hover State */
+.company-card:hover .service-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.service-title {
+    font-size: 0.8rem;
+    color: var(--color-success);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.service-list {
+    list-style: none;
+    font-size: 0.75rem;
+    color: var(--color-text-main);
+    text-align: left;
+    width: 100%;
+}
+
+.service-list li {
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.service-list li::before {
+    content: '•';
+    color: var(--color-accent);
+}

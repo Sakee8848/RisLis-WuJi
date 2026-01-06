@@ -69,6 +69,8 @@ const Views = {
                 </div>
             `;
 
+        const connectedCount = state.connectedCompanies ? state.connectedCompanies.length : 0;
+
         return `
         <div id="view-home" class="view active">
             <div class="hero-section">
@@ -76,6 +78,25 @@ const Views = {
                 <p class="subtitle">意图驱动保险智能体</p>
             </div>
             
+            <!-- Channel Status Entry -->
+            <div class="channel-status-card" onclick="window.openChannels()">
+                <div class="channel-info">
+                    <h3 style="font-size:0.95rem; margin-bottom:4px;">RisLis Link <span style="font-size:0.7rem; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px; margin-left:8px; border:1px solid rgba(255,255,255,0.2);">LIVE</span></h3>
+                    <p style="font-size:0.75rem; color:var(--color-text-muted);">
+                        ${connectedCount > 0 ? `<span style="color:var(--color-success)">●</span> 已连接 ${connectedCount} 个数据源` : '未连接保险公司数据源'}
+                    </p>
+                </div>
+                <div class="channel-icon-group">
+                    <div class="channel-indicators">
+                        ${connectedCount > 0
+                ? state.connectedCompanies.map(c => `<div class="channel-logo-mini" style="background:${c.color}; color:#fff;">${c.name[0]}</div>`).join('')
+                : '<div class="channel-logo-mini"><i class="bi bi-plus"></i></div>'
+            }
+                    </div>
+                    <i class="bi bi-chevron-right" style="color:var(--color-text-muted); font-size:0.8rem;"></i>
+                </div>
+            </div>
+
             <div class="active-tasks">
                 ${tasksHtml}
             </div>
@@ -93,6 +114,31 @@ const Views = {
             ${getDrawer('home')}
         </div>
     `},
+
+
+    chat: () => `
+        <div id="view-chat" class="view active view-chat">
+            <div class="chat-header">
+                <button class="back-btn" onclick="window.resetApp()"><i class="bi bi-arrow-left"></i></button>
+                <h2>文字指令</h2>
+            </div>
+            
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="chat-bubble bot">
+                        我是 RisLis，您的保险智能体。<br>请告诉我您需要创建的案件或询问的保单详情。
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <textarea class="chat-input" id="chat-input" placeholder="输入指令 (例如: '帮我创建一个医疗理赔案件')..." autofocus></textarea>
+                    <div class="chat-actions">
+                        <button class="send-btn" id="send-btn" onclick="window.sendMessage()">发送 <i class="bi bi-arrow-up-short"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
 
     files: () => `
         <div id="view-files" class="view active">
@@ -259,6 +305,134 @@ const Views = {
                 <button class="btn-secondary" onclick="window.resetApp()">修改 (Edit)</button>
             </div>
         </div>
+    `,
+
+    channels: () => `
+        <div id="view-channels" class="view active">
+            <div class="view-header" style="padding:24px; display:flex; align-items:center; gap:12px;">
+                <button class="back-btn" onclick="window.resetApp()"><i class="bi bi-arrow-left"></i></button>
+                <h2>连接保险数据源</h2>
+            </div>
+            <p style="padding:0 24px; color:var(--color-text-muted); font-size:0.9rem;">
+                连接后，RisLis 将通过加密专线实时同步您的保单权益与理赔进度。
+            </p>
+
+            <div class="channel-grid">
+                <!-- PingAn -->
+                <div class="company-card" onclick="window.connectToCompany('pingan', '中国平安', '#ff6b00')">
+                    <div class="company-logo-lg" style="color:#ff6b00">平</div>
+                    <h4 class="company-name">中国平安</h4>
+                    <span class="connection-status">点击连接</span>
+                    
+                    <!-- Hover Overlay -->
+                    <div class="service-overlay">
+                        <div class="service-title">可对接服务能力</div>
+                        <ul class="service-list">
+                            <li>全量保单同步</li>
+                            <li>闪赔绿色通道</li>
+                            <li>电子发票调取</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- AIA -->
+                <div class="company-card" onclick="window.connectToCompany('aia', '友邦保险', '#d31145')">
+                    <div class="company-logo-lg" style="color:#d31145">A</div>
+                    <h4 class="company-name">友邦保险</h4>
+                    <span class="connection-status">点击连接</span>
+                     <div class="service-overlay">
+                        <div class="service-title">可对接服务能力</div>
+                        <ul class="service-list">
+                            <li>高端医疗直付</li>
+                            <li>保单权益查询</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- ZA -->
+                <div class="company-card" onclick="window.connectToCompany('za', '众安保险', '#00b0b9')">
+                    <div class="company-logo-lg" style="color:#00b0b9">Z</div>
+                    <h4 class="company-name">众安保险</h4>
+                    <span class="connection-status">点击连接</span>
+                     <div class="service-overlay">
+                        <div class="service-title">可对接服务能力</div>
+                        <ul class="service-list">
+                            <li>航延险自动赔</li>
+                            <li>宠物险报销</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                 <!-- TaiKang -->
+                <div class="company-card" onclick="window.connectToCompany('taikang', '泰康人寿', '#7fb038')">
+                    <div class="company-logo-lg" style="color:#7fb038">泰</div>
+                    <h4 class="company-name">泰康人寿</h4>
+                    <span class="connection-status">点击连接</span>
+                     <div class="service-overlay">
+                        <div class="service-title">可对接服务能力</div>
+                        <ul class="service-list">
+                            <li>养老社区预约</li>
+                            <li>健保通直连</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+
+    connecting: (data) => `
+        <div id="view-connecting" class="view active view-connecting">
+            <h2 style="margin-bottom:40px; font-size:1.5rem;">建立加密专线</h2>
+            
+            <div class="connection-stage" id="connection-stage">
+                <div class="node pulse" id="node-left">
+                    <i class="bi bi-cpu-fill node-icon"></i>
+                    <span class="node-label">RisLis Core</span>
+                </div>
+
+                <div class="connection-line-container">
+                    <div class="connection-line-active"></div>
+                </div>
+
+                <div class="node" id="node-right">
+                    <div class="company-logo-lg" style="width:50px; height:50px; font-size:1.2rem; margin:0; border:none; box-shadow:none; color:${data.color}">${data.name[0]}</div>
+                    <span class="node-label">${data.name} Host</span>
+                </div>
+            </div>
+
+            <div class="terminal-log" id="terminal-log">
+                <!-- Logs will appear here -->
+            </div>
+
+            <!-- Capabilities Manifest Card (Hidden by default) -->
+            <div class="capabilities-card" id="capabilities-card">
+                <div class="cap-header">
+                    <span class="cap-title">协议握手确认 (PROTOCOL ACK)</span>
+                    <i class="bi bi-patch-check-fill" style="color:var(--color-success)"></i>
+                </div>
+                <div class="cap-list">
+                    <div class="cap-item">
+                        <span>实时数据同步协议</span>
+                        <span class="cap-status">[已激活]</span>
+                    </div>
+                    <div class="cap-item">
+                        <span>保单权益查询接口</span>
+                        <span class="cap-status">[已授权]</span>
+                    </div>
+                    <div class="cap-item">
+                        <span>极速理赔绿色通道</span>
+                        <span class="cap-status">[就绪]</span>
+                    </div>
+                    <div class="cap-item">
+                        <span>电子发票直连桥接</span>
+                        <span class="cap-status">[已连接]</span>
+                    </div>
+                </div>
+                <button class="btn-acknowledge" onclick="window.acknowledgeConnection('${data.id}', '${data.name}', '${data.color}')">
+                    >> 确认协议并激活 (ACTIVATE)
+                </button>
+            </div>
+        </div>
     `
 };
 
@@ -341,6 +515,41 @@ window.finalSubmitAction = () => {
     window.resetApp();
 };
 
+window.sendMessage = async () => {
+    const input = document.getElementById('chat-input');
+    const messages = document.getElementById('chat-messages');
+
+    if (!input || !input.value.trim()) return;
+
+    const text = input.value.trim();
+
+    // Add user message
+    messages.innerHTML += `
+        <div class="chat-bubble user">
+            ${text}
+        </div>
+    `;
+    input.value = '';
+    messages.scrollTop = messages.scrollHeight;
+
+    // Simulate thinking/response
+    setTimeout(async () => {
+        try {
+            // Re-use handleVoiceInput logic or simple mock
+            // For now, let's treat it as an intent trigger
+            const draft = await MockAI.analyzeIntent();
+            render(Views.draftProposal(draft));
+        } catch (e) {
+            messages.innerHTML += `
+                <div class="chat-bubble bot">
+                    抱歉，我没有理解您的指令，请重试。
+                </div>
+            `;
+            messages.scrollTop = messages.scrollHeight;
+        }
+    }, 1000);
+};
+
 function attachListeners() {
     const btnRed = document.getElementById('the-red-button');
     const btnCam = document.getElementById('btn-camera');
@@ -389,10 +598,13 @@ function attachListeners() {
 
     if (btnTxt) {
         btnTxt.addEventListener('click', () => {
-            alert('⌨️ Demo：文本输入界面（开发中）');
+            state.view = 'chat';
+            render(Views.chat());
+            attachListeners(); // Re-bind for back button
         });
     }
 }
+
 
 // UI Flows
 function showSnapInterface() {
@@ -448,6 +660,79 @@ async function handleVoiceInput() {
         window.resetApp();
     }
 }
+
+// Connection Logic
+window.openChannels = () => {
+    state.view = 'channels';
+    render(Views.channels());
+};
+
+window.connectToCompany = (id, name, color) => {
+    state.view = 'connecting';
+    const companyData = { id, name, color };
+    render(Views.connecting(companyData)); // Re-render to show layout first
+
+    // Start Animation Sequence
+    const logContainer = document.getElementById('terminal-log');
+    const stage = document.getElementById('connection-stage');
+    const rightNode = document.getElementById('node-right');
+
+    const addLog = (text, type = 'normal') => {
+        if (!logContainer) return;
+        const div = document.createElement('div');
+        div.className = `log-line ${type}`;
+        div.innerHTML = `> ${text}`;
+        logContainer.appendChild(div);
+        logContainer.scrollTop = logContainer.scrollHeight;
+    };
+
+    setTimeout(() => addLog("Initializing secure handshake protocol..."), 500);
+    setTimeout(() => {
+        addLog("Resolving host address: connect.api." + id + ".com...");
+        stage.classList.add('connecting'); // trigger dotted line flow
+    }, 1500);
+
+    setTimeout(() => addLog("Handshake SYN sent. Waiting for ACK...", "warn"), 2500);
+
+    setTimeout(() => {
+        addLog("ACK received. Establishing SSL/TLS tunnel...", "success");
+        rightNode.classList.add('pulse'); // animate right node
+    }, 4000);
+
+    setTimeout(() => {
+        addLog("Verifying identity certificates...");
+    }, 5000);
+
+    setTimeout(() => {
+        addLog("Connection ESTABLISHED. Pipeline Active.", "success");
+        stage.classList.remove('connecting');
+        stage.classList.add('connected-state'); // solid line glow
+        document.getElementById('node-left').classList.add('success-pulse');
+        rightNode.classList.add('success-pulse');
+    }, 6500);
+
+    setTimeout(() => {
+        // Instead of Alert, show the Capabilities Card
+        const capCard = document.getElementById('capabilities-card');
+        if (capCard) capCard.classList.add('show');
+    }, 7500);
+};
+
+window.acknowledgeConnection = (id, name, color) => {
+    // Save state
+    if (!state.connectedCompanies) state.connectedCompanies = [];
+    state.connectedCompanies.push({ id, name, color });
+
+    // Optional: Add a log entry to daily events
+    state.events.push({
+        id: Date.now(),
+        action: '加密专线已建立',
+        desc: `与 [${name}] 的数据同步协议已激活`,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    });
+
+    window.resetApp();
+};
 
 // Boot
 document.addEventListener('DOMContentLoaded', init);
