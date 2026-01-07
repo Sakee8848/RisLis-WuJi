@@ -1,3 +1,6 @@
+## [2026-01-07 10:04:36] Update
+- Fix mobile drawer: Force CSS refresh and ensure default collapsed state
+
 ## [2026-01-07 09:59:31] Update
 - Fix mobile drawer interaction: Increased hit area and Z-index
 
