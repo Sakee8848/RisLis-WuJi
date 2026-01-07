@@ -1,3 +1,6 @@
+## [2026-01-07 10:09:57] Update
+- Switch to Fixed Tab Bar layout significantly improving mobile usability./deploy.sh
+
 ## [2026-01-07 10:05:44] Update
 - Fix mobile drawer stuck state: Force CSS update and collapsed priority
 

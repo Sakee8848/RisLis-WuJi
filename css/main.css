@@ -141,8 +141,8 @@ h2 {
 /* The Red Button Area */
 .red-button-container {
     position: absolute;
-    bottom: 80px;
-    /* Lowered, safe now since drawer is hidden */
+    bottom: 110px;
+    /* Floating above the fixed tab bar */
     left: 0;
     width: 100%;
     display: flex;
@@ -250,44 +250,34 @@ h2 {
     position: fixed;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%) translateY(calc(100% - 24px)) !important;
-    /* Peek 24px */
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Always centered, no vertical movement */
     width: 100%;
     max-width: 480px;
     background: var(--color-surface-glass);
     border-radius: 24px 24px 0 0;
+    /* Or 0 if you want full width rect */
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
-    z-index: 999;
-    /* Max Z-index */
-    padding-bottom: calc(30px + env(safe-area-inset-bottom));
+    z-index: 900;
+    /* High but below overlays */
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
     /* iOS Safe Area */
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    height: auto;
+    /* Let content define height */
 }
 
-/* Expanded State */
+/* Remove expanded state logic as it's always visible */
 .bottom-drawer.expanded {
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%);
 }
 
+/* Hide the handle since it's fixed */
 .drawer-handle {
-    width: 40px;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 3px;
-    margin: 10px auto;
-    position: relative;
-    /* For pseudo element */
-}
-
-/* Increase click area for handle */
-.drawer-handle::after {
-    content: '';
-    position: absolute;
-    top: -20px;
-    bottom: -20px;
-    left: -20px;
-    right: -20px;
+    display: none;
 }
 
 .drawer-nav {

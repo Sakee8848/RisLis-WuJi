@@ -568,40 +568,11 @@ function attachListeners() {
         });
     });
 
-    // Bottom Drawer Mobile Toggle
+    // Bottom Drawer Mobile Toggle (Removed - Now Fixed Bar)
+    /* 
     const drawer = document.querySelector('.bottom-drawer');
-    if (drawer) {
-        const toggleDrawer = (e) => {
-            // If dragging, ignore click (optional refinement, but simple toggle is safer for now)
-
-            // Logic:
-            // 1. If hitting handle -> Always toggle
-            // 2. If collapsed -> Any click on the visible tip expands it
-            // 3. If expanded -> Clicking outside/content handles itself, but clicking handle collapses
-
-            const isHandle = e.target.closest('.drawer-handle');
-            const isExpanded = drawer.classList.contains('expanded');
-
-            if (isHandle) {
-                // Handle always toggles
-                drawer.classList.toggle('expanded');
-                e.stopPropagation(); // Prevent double firing
-            } else if (!isExpanded) {
-                // If collapsed, clicking anywhere on the visible part expands it
-                drawer.classList.add('expanded');
-            }
-        };
-
-        drawer.addEventListener('click', toggleDrawer);
-        // drawer.addEventListener('touchstart', toggleDrawer); // Optional if click is sluggish, but click is usually safer to avoid ghost clicks
-
-        // Add a global click listener to close drawer when clicking outside
-        document.addEventListener('click', (e) => {
-            if (drawer.classList.contains('expanded') && !drawer.contains(e.target)) {
-                drawer.classList.remove('expanded');
-            }
-        });
-    }
+    if (drawer) { ... } 
+    */
 
     if (btnRed) {
         const startListening = () => {
