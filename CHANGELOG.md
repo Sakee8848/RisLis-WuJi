@@ -1,3 +1,6 @@
+## [2026-01-07 09:59:31] Update
+- Fix mobile drawer interaction: Increased hit area and Z-index
+
 ## [2026-01-07 09:53:31] Update
 - UI布局优化：隐藏底部导航栏，调整主按钮位置以适配移动端
 

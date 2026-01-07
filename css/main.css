@@ -250,34 +250,44 @@ h2 {
     position: fixed;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%) translateY(calc(100% - 15px));
-    /* Default: Hidden, only peek handle */
+    transform: translateX(-50%) translateY(calc(100% - 24px));
+    /* Peek 24px */
     width: 100%;
     max-width: 480px;
     background: var(--color-surface-glass);
     border-radius: 24px 24px 0 0;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
-    z-index: 30;
-    padding-bottom: 30px;
-    /* More safe area */
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    /* Bouncy spring effect */
+    z-index: 999;
+    /* Max Z-index */
+    padding-bottom: calc(30px + env(safe-area-inset-bottom));
+    /* iOS Safe Area */
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* Expanded State */
-.bottom-drawer.expanded,
-.bottom-drawer:hover {
-    /* Hover for PC, JS class for mobile */
+.bottom-drawer.expanded {
     transform: translateX(-50%) translateY(0);
 }
 
 .drawer-handle {
     width: 40px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
-    margin: 12px auto;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    margin: 10px auto;
+    position: relative;
+    /* For pseudo element */
+}
+
+/* Increase click area for handle */
+.drawer-handle::after {
+    content: '';
+    position: absolute;
+    top: -20px;
+    bottom: -20px;
+    left: -20px;
+    right: -20px;
 }
 
 .drawer-nav {
