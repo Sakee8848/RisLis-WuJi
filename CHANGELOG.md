@@ -1,3 +1,6 @@
+## [2026-01-07 10:05:44] Update
+- Fix mobile drawer stuck state: Force CSS update and collapsed priority
+
 ## [2026-01-07 10:04:36] Update
 - Fix mobile drawer: Force CSS refresh and ensure default collapsed state
 
