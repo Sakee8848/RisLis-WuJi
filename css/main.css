@@ -923,12 +923,13 @@ textarea.chat-input {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
 /* ----- Channel & Connection Styles ----- */
 
 /* 入口卡片 */
 .channel-status-card {
-    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.1);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 16px 20px;
     display: flex;
@@ -940,7 +941,7 @@ textarea.chat-input {
 }
 
 .channel-status-card:active {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.08);
     transform: scale(0.98);
 }
 
@@ -952,7 +953,8 @@ textarea.chat-input {
 
 .channel-indicators {
     display: flex;
-    gap: -8px; /* overlap */
+    gap: -8px;
+    /* overlap */
 }
 
 .channel-logo-mini {
@@ -969,7 +971,10 @@ textarea.chat-input {
     border: 2px solid var(--color-surface);
     margin-left: -8px;
 }
-.channel-logo-mini:first-child { margin-left: 0; }
+
+.channel-logo-mini:first-child {
+    margin-left: 0;
+}
 
 /* 列表视图 */
 .channel-grid {
@@ -981,7 +986,7 @@ textarea.chat-input {
 
 .company-card {
     background: var(--color-surface);
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     padding: 24px 16px;
     display: flex;
@@ -1004,13 +1009,14 @@ textarea.chat-input {
     background: #fff;
     color: #1a1d24;
     border-radius: 16px;
-    font-size: 2rem; /* Initial or Icon */
+    font-size: 2rem;
+    /* Initial or Icon */
     font-weight: 800;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .company-name {
@@ -1055,7 +1061,7 @@ textarea.chat-input {
     height: 80px;
     border-radius: 20px;
     background: var(--color-surface);
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1081,11 +1087,12 @@ textarea.chat-input {
 /* 连接线 */
 .connection-line-container {
     position: absolute;
-    left: 80px; /* node width */
+    left: 80px;
+    /* node width */
     right: 80px;
     top: 50%;
     height: 4px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     margin: 0 40px;
     transform: translateY(-50%);
     overflow: hidden;
@@ -1109,8 +1116,13 @@ textarea.chat-input {
 }
 
 @keyframes flowData {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 /* 成功状态：实线发光 */
@@ -1122,8 +1134,15 @@ textarea.chat-input {
 
 /* Pulse Effect for Nodes */
 @keyframes pulse-ring {
-    0% { transform: scale(0.8); opacity: 0.5; }
-    100% { transform: scale(1.5); opacity: 0; }
+    0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
 }
 
 .node.pulse::before {
@@ -1169,11 +1188,18 @@ textarea.chat-input {
     animation: fadeLog 0.3s forwards;
 }
 
-.log-line.success { color: var(--color-success); }
-.log-line.warn { color: var(--color-warning); }
+.log-line.success {
+    color: var(--color-success);
+}
+
+.log-line.warn {
+    color: var(--color-warning);
+}
 
 @keyframes fadeLog {
-    to { opacity: 1; }
+    to {
+        opacity: 1;
+    }
 }
 
 /* ----- Capabilities Manifest Card ----- */
@@ -1188,7 +1214,8 @@ textarea.chat-input {
     padding: 20px;
     box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
     animation: slideUp 0.5s var(--easing);
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     z-index: 10;
 }
 
@@ -1200,7 +1227,7 @@ textarea.chat-input {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 12px;
     margin-bottom: 12px;
 }
@@ -1255,7 +1282,7 @@ textarea.chat-input {
 .company-card {
     position: relative;
     /* overflow: visible;  Allow tooltip to show outside if needed, but we used hidden before */
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 /* Service List Overlay (Hidden by default) */
@@ -1274,7 +1301,8 @@ textarea.chat-input {
     padding: 16px;
     opacity: 0;
     transition: opacity 0.3s ease;
-    pointer-events: none; /* Let clicks pass through initially */
+    pointer-events: none;
+    /* Let clicks pass through initially */
 }
 
 /* Hover State */
@@ -1308,4 +1336,16 @@ textarea.chat-input {
 .service-list li::before {
     content: '•';
     color: var(--color-accent);
+}
+
+/* Logo Image - Large Transparent */
+.logo-img {
+    height: 56px;
+    /* Much larger */
+    width: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    /* Removed background and padding to let transparency show */
+    filter: invert(1);
+    /* Invert black logo to white for dark mode */
 }
