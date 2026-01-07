@@ -111,8 +111,9 @@ h2 {
     position: relative;
     overflow-y: auto;
     padding: 20px;
-    padding-bottom: 100px;
-    /* Space for Red Button */
+    padding: 20px;
+    padding-bottom: 200px;
+    /* Extra space for scrolling so content isn't hidden behind button */
 }
 
 /* Home View Layout */
@@ -140,8 +141,8 @@ h2 {
 /* The Red Button Area */
 .red-button-container {
     position: absolute;
-    bottom: 160px;
-    /* Lifted up to avoid drawer overlap */
+    bottom: 80px;
+    /* Lowered, safe now since drawer is hidden */
     left: 0;
     width: 100%;
     display: flex;
@@ -249,7 +250,8 @@ h2 {
     position: fixed;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(calc(100% - 15px));
+    /* Default: Hidden, only peek handle */
     width: 100%;
     max-width: 480px;
     background: var(--color-surface-glass);
@@ -257,8 +259,17 @@ h2 {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     z-index: 30;
-    padding-bottom: 20px;
-    /* Safe area */
+    padding-bottom: 30px;
+    /* More safe area */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bouncy spring effect */
+}
+
+/* Expanded State */
+.bottom-drawer.expanded,
+.bottom-drawer:hover {
+    /* Hover for PC, JS class for mobile */
+    transform: translateX(-50%) translateY(0);
 }
 
 .drawer-handle {

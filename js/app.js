@@ -568,6 +568,21 @@ function attachListeners() {
         });
     });
 
+    // Bottom Drawer Mobile Toggle
+    const drawer = document.querySelector('.bottom-drawer');
+    if (drawer) {
+        // Toggle on handle click or when collapsed
+        drawer.addEventListener('click', (e) => {
+            const isHandle = e.target.classList.contains('drawer-handle') || e.target.closest('.drawer-handle');
+            const isCollapsed = !drawer.classList.contains('expanded');
+
+            // If clicking handle, or clicking anywhere while collapsed -> toggle
+            if (isHandle || isCollapsed) {
+                drawer.classList.toggle('expanded');
+            }
+        });
+    }
+
     if (btnRed) {
         const startListening = () => {
             state.isListening = true;
